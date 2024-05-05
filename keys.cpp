@@ -1,4 +1,11 @@
-/* This program is to implement optimal binary search tree*/
+/* Beginning with an empty binary search tree, construct binary search tree
+byinserting the values in the order given. After constructing a binary tree -
+i. Insert new node
+ii. Find number of nodes in longest path from root
+iii. Minimum data value found in the tree
+iv. Change a tree so that the roles of the left and right pointers are swapped at
+everynode
+v. Search a value*/
 #include<iostream>
 using namespace std;
 #define SIZE 10
