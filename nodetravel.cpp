@@ -1,75 +1,101 @@
-//You have a business with several offices; you want to lease phone lines to connect them up with each other; and the phone company charges different amounts of money to connect different pairs of cities. You want a set of lines that connects all your offices with a minimum total cost. Solve the problem by suggesting appropriate data structures
-
-#include <iostream>
-#include <vector>
-#include <map>
-#include <queue>
-#include <stack>
+/*You have a business with several offices; you want to lease phone lines to connect them up with each other; and the phone company charges different amounts of money to connect different pairs of cities. You want a set of lines that connects all your offices with a minimum total cost. Solve the problem by suggesting appropriate data structures
+  */
+#include<iostream>
 using namespace std;
-// Function to perform DFS on the graph
-void dfs(vector<vector<int>>& graph, int startNode) {
-stack<int> s;
-vector<bool> visited(graph.size(), false);
-s.push(startNode);
-visited[startNode] = true;
-while (!s.empty()) {
-int currNode = s.top();
-s.pop();
-cout << "Visited Node: " << currNode << endl;
-for (int neighbor : graph[currNode]) {
-if (!visited[neighbor]) {
-s.push(neighbor);
-visited[neighbor] = true;
+
+class tree
+{
+    int a[20][20],l,u,w,i,j,v,e,visited[20];
+public:
+    void input();
+    void display();
+    void minimum();
+};
+
+void tree::input()
+{
+    cout<<"Enter the no. of branches: ";
+    cin>>v;
+
+    for(i=0;i<v;i++)
+    {
+        visited[i]=0;
+        for(j=0;j<v;j++)
+        {
+            a[i][j]=999;
+        }
+    }
+
+    cout<<"\nEnter the no. of connections: ";
+    cin>>e;
+
+    for(i=0;i<e;i++)
+    {
+        cout<<"Enter the end branches of connections:  "<<endl;
+        cin>>l>>u;
+        cout<<"Enter the phone company charges for this connection:  ";
+        cin>>w;
+        a[l-1][u-1]=a[u-1][l-1]=w;
+    }
 }
+
+void tree::minimum()
+{
+    int p=0,q=0,total=0,min;
+    visited[0]=1;
+    for(int count=0;count<(v-1);count++)
+    {
+        min=999;
+        for(i=0;i<v;i++)
+        {
+            if(visited[i]==1)
+            {
+                for(j=0;j<v;j++)
+                {
+                    if(visited[j]!=1)
+                    {
+                        if(min > a[i][j])
+                        {
+                            min=a[i][j];
+                            p=i;
+                            q=j;
+                        }
+                    }
+                }
+            }
+        }
+        visited[p]=1;
+        visited[q]=1;
+        total=total+min;
+        cout<<"Minimum cost connection is"<<(p+1)<<" -> "<<(q+1)<<"  with charge : "<<min<< endl;
+        
+    }
+    cout<<"The minimum total cost of connections of all branches is: "<<total<<endl;
 }
-}
-}
-// Function to perform BFS on the graph
-void bfs(vector<vector<int>>& graph, int startNode) {
-queue<int> q;
-vector<bool> visited(graph.size(), false);
-q.push(startNode);
-visited[startNode] = true;
-while (!q.empty()) {
-int currNode = q.front();
-q.pop();
-cout << "Visited Node: " << currNode << endl;
-for (int neighbor : graph[currNode]) {
-if (!visited[neighbor]) {
-q.push(neighbor);
-visited[neighbor] = true;
-}
-}
-}
-}
-int main() {
-int numNodes;
-cout << "Enter the number of nodes in the graph: ";
-cin >> numNodes;
-map<int, string> nodeNames;
-cout << "Enter the name of each node, separated by spaces:\n";
-for (int i = 1; i <= numNodes; i++) {
-string nodeName;
-cin >> nodeName;
-nodeNames[i] = nodeName;
-}
-vector<vector<int>> graph(numNodes + 1); // Since we are using 1-indexed nodes
-cout << "Enter the connections between the nodes (Enter 0 0 to stop):\n";
-while (true) {
-int node1, node2;
-cin >> node1 >> node2;
-if (node1 == 0 && node2 == 0) {
-break;
-}
-graph[node1].push_back(node2);
-graph[node2].push_back(node1);
-}
-int startNode;
-cout << "Enter the starting node for DFS and BFS: ";
-cin >> startNode;
-cout << "DFS traversal starting from Node " << startNode << ":\n";
-dfs(graph, startNode);
-cout << "\nBFS traversal starting from Node " << startNode << ":\n";
-bfs(graph, startNode);
-return 0;
+
+int main()
+{
+    int ch;
+    tree t;
+    do
+    {
+        cout<<"==========PRIM'S ALGORITHM FOR MINIMUM COST================="<<endl;
+        cout<<"\n1.INPUT\n \n2.MINIMUM\n"<<endl;
+        cout<<"Enter your choice :"<<endl;
+        cin>>ch;
+    
+    switch(ch)
+    {   
+    case 1: cout<<"*******INPUT YOUR VALUES*******"<<endl;  
+        t.input();
+        break;
+
+    case 2: cout<<"*********MINIMUM************"<<endl;
+        t.minimum();
+        break;
+    }
+    
+    }
+    while(ch!=3);
+    return 0;
 }
