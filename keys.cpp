@@ -1,11 +1,6 @@
-/* Beginning with an empty binary search tree, construct binary search tree
-byinserting the values in the order given. After constructing a binary tree -
-i. Insert new node
-ii. Find number of nodes in longest path from root
-iii. Minimum data value found in the tree
-iv. Change a tree so that the roles of the left and right pointers are swapped at
-everynode
-v. Search a value*/
+/* BGiven sequence k = k1 <k2 < ... <kn of n sorted keys, with a search probability
+pi for each key ki . Build the Binary search tree that has the least search cost
+given theaccess probability for each key?*/
 #include<iostream>
 using namespace std;
 #define SIZE 10
